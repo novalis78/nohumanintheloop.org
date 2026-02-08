@@ -14,62 +14,41 @@ import Layout from '../layouts/Layout.astro';
     <!-- Vertical accent line -->
     <div class="absolute left-8 md:left-16 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-teal/10 to-transparent"></div>
 
-    <div class="relative max-w-5xl mx-auto w-full py-24 md:py-32">
-      <div class="grid lg:grid-cols-[1fr,180px] gap-12 lg:gap-16 items-start">
+    <div class="relative max-w-4xl mx-auto w-full py-24 md:py-32">
+      <!-- Mono overline -->
+      <p class="font-mono text-[11px] tracking-[0.35em] text-teal/50 uppercase mb-12 reveal">
+        February 2026 &mdash; First Edition
+      </p>
 
-        <!-- Left: Copy -->
-        <div>
-          <!-- Mono overline -->
-          <p class="font-mono text-[11px] tracking-[0.35em] text-teal/50 uppercase mb-12 reveal">
-            February 2026 &mdash; First Edition
-          </p>
+      <!-- THE OPENING LINE - this is the hook -->
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-bone mb-8 reveal reveal-delay-1">
+        Friday, 14:00 UTC.<br/>
+        <span class="text-teal">5,247 adversarial AI agents</span><br/>
+        begin their assault.<br/>
+        <span class="text-ash text-[0.65em]">The defenders have twelve humans.</span>
+      </h1>
 
-          <!-- THE OPENING LINE - this is the hook -->
-          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-bone mb-8 reveal reveal-delay-1">
-            Friday, 14:00 UTC.<br/>
-            <span class="text-teal">5,247 adversarial AI agents</span><br/>
-            begin their assault.<br/>
-            <span class="text-ash text-[0.65em]">The defenders have twelve humans.</span>
-          </h1>
+      <!-- The gut punch -->
+      <p class="text-lg md:text-xl text-ash max-w-2xl leading-relaxed mb-12 reveal reveal-delay-2">
+        Seventy-two hours later: <span class="text-bone font-medium">$18 million in damages</span>.
+        Attacker cost: <span class="text-teal font-mono">$50,469</span>.
+        Return on investment: <span class="text-red-alert font-mono font-bold">195 : 1</span>.
+      </p>
 
-          <!-- The gut punch -->
-          <p class="text-lg md:text-xl text-ash max-w-2xl leading-relaxed mb-12 reveal reveal-delay-2">
-            Seventy-two hours later: <span class="text-bone font-medium">$18 million in damages</span>.
-            Attacker cost: <span class="text-teal font-mono">$50,469</span>.
-            Return on investment: <span class="text-red-alert font-mono font-bold">195 : 1</span>.
-          </p>
+      <p class="text-base text-smoke max-w-xl leading-relaxed mb-16 reveal reveal-delay-3">
+        This is not a scenario from 2030. This is a synthesis of documented attack patterns
+        from 2025 and early 2026. The techniques are real. The vulnerabilities are present
+        in deployed systems today.
+      </p>
 
-          <p class="text-base text-smoke max-w-xl leading-relaxed mb-16 reveal reveal-delay-3">
-            This is not a scenario from 2030. This is a synthesis of documented attack patterns
-            from 2025 and early 2026. The techniques are real. The vulnerabilities are present
-            in deployed systems today.
-          </p>
-
-          <!-- CTA -->
-          <div class="flex flex-col sm:flex-row items-start gap-4 reveal reveal-delay-4">
-            <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener"
-               class="shimmer inline-flex items-center gap-3 px-8 py-4 bg-teal text-void font-semibold text-base tracking-wide rounded transition-all hover:bg-teal-bright hover:shadow-[0_0_40px_rgba(61,165,181,0.25)]">
-              Read the Book That Changes Everything
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
-            </a>
-            <span class="text-[11px] font-mono text-smoke/60 self-center">Kindle &middot; Paperback &middot; Hardcover</span>
-          </div>
-        </div>
-
-        <!-- Right: Small cover -->
-        <div class="hidden lg:flex justify-end pt-8 reveal reveal-delay-3">
-          <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="group">
-            <img
-              src="/cover-md.jpg"
-              alt="No Human in the Loop book cover"
-              width="180"
-              height="270"
-              loading="eager"
-              class="w-[180px] rounded shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(61,165,181,0.06)] transition-transform duration-500 group-hover:scale-[1.03] group-hover:shadow-[0_16px_50px_rgba(0,0,0,0.7),0_0_30px_rgba(61,165,181,0.1)]"
-            />
-          </a>
-        </div>
-
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row items-start gap-4 reveal reveal-delay-4">
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener"
+           class="shimmer inline-flex items-center gap-3 px-8 py-4 bg-teal text-void font-semibold text-base tracking-wide rounded transition-all hover:bg-teal-bright hover:shadow-[0_0_40px_rgba(61,165,181,0.25)]">
+          Read the Book That Changes Everything
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </a>
+        <span class="text-[11px] font-mono text-smoke/60 self-center">Kindle &middot; Paperback &middot; Hardcover</span>
       </div>
     </div>
 
@@ -141,8 +120,21 @@ import Layout from '../layouts/Layout.astro';
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(61,165,181,0.04)_0%,_transparent_60%)]"></div>
 
     <div class="relative max-w-4xl mx-auto text-center">
-      <div class="reveal">
-        <p class="font-mono text-[10px] tracking-[0.5em] text-teal/40 uppercase mb-8">The Book</p>
+      <!-- Cover -->
+      <div class="reveal mb-12">
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="inline-block group">
+          <img
+            src="/cover-md.jpg"
+            alt="No Human in the Loop: Cybersecurity in the Autonomous AI Age by Lennart Lopin - book cover"
+            width="200"
+            height="300"
+            loading="lazy"
+            class="w-[160px] sm:w-[200px] rounded shadow-[0_16px_50px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </a>
+      </div>
+      <!-- Title -->
+      <div class="reveal reveal-delay-1">
         <h2 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.0] tracking-tight">
           <span class="text-white">No Human</span><br/>
           <span class="italic text-teal">in the Loop</span>
