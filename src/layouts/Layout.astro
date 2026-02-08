@@ -7,9 +7,11 @@ interface Props {
 }
 
 const {
-  title = "No Human in the Loop | Cybersecurity in the Autonomous AI Age",
-  description = "The definitive guide to cybersecurity when autonomous AI agents operate at scale. By Lennart Lopin, CISSP, CCSP, CSSLP."
+  title = "No Human in the Loop: Cybersecurity in the Autonomous AI Age | Lennart Lopin",
+  description = "88% of enterprises experienced AI agent security incidents. Only 6% have defenses. The most popular AI agent framework scored 2 out of 100 for security. This is the book the autonomous AI age has been waiting for."
 } = Astro.props;
+
+const canonicalUrl = "https://www.nohumanintheloop.org";
 ---
 
 <html lang="en">
@@ -18,27 +20,80 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content="Lennart Lopin" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Keywords (still useful for some engines) -->
+    <meta name="keywords" content="AI cybersecurity, autonomous AI agents, AI security book, prompt injection, zero trust AI, AI threat landscape, machine identity, cybersecurity 2026, Lennart Lopin, CISSP, AI agent security, LLM security, AI governance, autonomous systems security" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content="No Human in the Loop: Cybersecurity in the Autonomous AI Age" />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.nohumanintheloop.org" />
-    <meta property="og:image" content="https://www.nohumanintheloop.org/og-image.png" />
+    <meta property="og:type" content="book" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="No Human in the Loop" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="book:author" content="Lennart Lopin" />
+    <meta property="book:isbn" content="979-8-2469-7207-6" />
+    <meta property="book:release_date" content="2026-02-01" />
+    <meta property="book:tag" content="cybersecurity" />
+    <meta property="book:tag" content="artificial intelligence" />
+    <meta property="book:tag" content="autonomous agents" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content="No Human in the Loop" />
+    <meta name="twitter:description" content="$50,469 in attacker costs. $18 million in damages. 195:1 ROI. The autonomous AI security crisis is here." />
+
+    <!-- Structured Data: Book -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": "No Human in the Loop: Cybersecurity in the Autonomous AI Age",
+      "author": {
+        "@type": "Person",
+        "name": "Lennart Lopin",
+        "jobTitle": "CTO & Co-founder, Byte Federal",
+        "url": "https://www.nohumanintheloop.org"
+      },
+      "isbn": "979-8-2469-7207-6",
+      "bookFormat": ["Hardcover", "Paperback", "EBook"],
+      "numberOfPages": 588,
+      "datePublished": "2026-02",
+      "publisher": { "@type": "Organization", "name": "Independent" },
+      "genre": ["Cybersecurity", "Artificial Intelligence", "Technology"],
+      "inLanguage": "en",
+      "url": "https://www.nohumanintheloop.org",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.amazon.com/dp/B0GM7S1HYD",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "USD"
+      },
+      "description": "The definitive guide to cybersecurity when autonomous AI agents operate at scale. Based on documented incidents from 2025-2026, not hypothetical scenarios."
+    })} />
+
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "No Human in the Loop - Official Book Website",
+      "description": description,
+      "url": canonicalUrl,
+      "mainEntity": {
+        "@type": "Book",
+        "name": "No Human in the Loop: Cybersecurity in the Autonomous AI Age"
+      }
+    })} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <title>{title}</title>
   </head>
-  <body class="bg-cyber-dark text-gray-200 antialiased overflow-x-hidden">
+  <body class="bg-void text-bone antialiased overflow-x-hidden">
     <slot />
   </body>
 </html>
