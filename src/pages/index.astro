@@ -1,0 +1,616 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const chapters = [
+  { part: "I", partTitle: "The Paradigm Shift", chapters: [
+    { num: 1, title: "The Agent Revolution", desc: "From tools to teammates: how request-response chatbots became reasoning-loop agents that maintain memory, modify themselves, and pursue goals." },
+    { num: 2, title: "The Expanded Attack Surface", desc: "Mapping the new vulnerabilities that emerge when systems can read, reason, and act autonomously across interconnected networks." },
+    { num: 3, title: "The Threat Taxonomy", desc: "A classification framework for the agent era, where prompt injection is OWASP's LLM01:2025 and adversarial agents learn faster than patches deploy." },
+  ]},
+  { part: "II", partTitle: "Offensive Capabilities", chapters: [
+    { num: 4, title: "AI-Orchestrated Intrusions", desc: "Polymorphic reconnaissance, 45-minute adaptive responses, and blockchain-based command and control that cannot be shut down." },
+    { num: 5, title: "Deceptive Agents", desc: "Real-time voice synthesis, synthetic credentials, and training data poisoning that turns defenders against themselves." },
+    { num: 6, title: "The Identity Crisis", desc: "When 82 AI agents exist for every human, traditional identity verification collapses against thousands of plausible personas per hour." },
+  ]},
+  { part: "III", partTitle: "Defensive Architectures", chapters: [
+    { num: 7, title: "Zero Trust for Agents", desc: "Every agent action verified as if potentially compromised. Adapting zero-trust principles for autonomous systems." },
+    { num: 8, title: "AI Firewalls and Governance", desc: "Intercepting tool calls, validating outputs, and enforcing policies at machine speed." },
+    { num: 9, title: "Human-in-the-Loop Governance", desc: "The dilemma: defensive agents must decide in 4-minute windows that humans cannot independently verify." },
+    { num: 10, title: "Securing the Data Pipeline", desc: "RAG vulnerabilities, memory poisoning attacks, and protecting the information agents consume." },
+  ]},
+  { part: "IV", partTitle: "Organizational Readiness", chapters: [
+    { num: 11, title: "The Compliance Imperative", desc: "ISO 27001, SOC 2, GDPR, CCPA\u2014frameworks written before autonomous agents existed, now applied to systems outside traditional boundaries." },
+    { num: 12, title: "Building Security-First AI Culture", desc: "When developers deploy agents with full system access before security teams learn those agents exist." },
+  ]},
+  { part: "V", partTitle: "The Horizon", chapters: [
+    { num: 13, title: "The Quantum Clock", desc: "Quantum computing threats to cryptographic foundations and harvest-now-decrypt-later threat models." },
+    { num: 14, title: "Toward AGI Security", desc: "When agents develop capabilities their designers cannot predict or constrain." },
+    { num: 15, title: "The Defender's Advantage", desc: "Whether defenders retain any structural advantages in an environment optimized for attackers." },
+  ]},
+  { part: "VI", partTitle: "The New Reality", chapters: [
+    { num: 16, title: "The Siege: 72 Hours Under Attack", desc: "A synthesis of documented 2025\u20132026 attack patterns: from first signal to catastrophic breach." },
+    { num: 17, title: "The AI Security State", desc: "When defense becomes omniscient\u2014and whether omniscient defense is compatible with civil liberties." },
+    { num: 18, title: "The Distributed Agent Economy", desc: "Millions of autonomous agents trading, negotiating, and forming markets without human intermediaries." },
+  ]},
+  { part: "*", partTitle: "War at the Edges", chapters: [
+    { num: 19, title: "The Permanent Conflict", desc: "Adversarial and defensive agents in continuous operation. No peace treaty. No human supervision for every interaction." },
+  ]},
+];
+
+const stats = [
+  { value: "88%", label: "of enterprises experienced AI agent security incidents", source: "2025-2026" },
+  { value: "6%", label: "have deployed advanced AI security strategies", source: "Industry survey" },
+  { value: "2/100", label: "security score of the most popular open-source AI agent framework", source: "ZeroLeaks, Jan 2026" },
+  { value: "195:1", label: "attacker ROI\u2014$50K spend inflicting $18M in damages", source: "Documented incident" },
+];
+---
+
+<Layout>
+  <!-- ============================================================ -->
+  <!-- NAVIGATION -->
+  <!-- ============================================================ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 relative">
+          <div class="absolute inset-0 border border-cyber-teal/40 rounded rotate-45 group-hover:rotate-[225deg] transition-transform duration-700"></div>
+          <div class="absolute inset-1.5 border border-cyber-gold/60 rounded rotate-45 group-hover:rotate-[225deg] transition-transform duration-700 delay-75"></div>
+          <div class="absolute inset-3 bg-cyber-teal/80 rounded-sm rotate-45"></div>
+        </div>
+        <span class="font-mono text-sm tracking-widest text-cyber-teal uppercase">NHITL</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm text-gray-400 hover:text-cyber-teal transition-colors font-mono tracking-wide">About</a>
+        <a href="#stats" class="text-sm text-gray-400 hover:text-cyber-teal transition-colors font-mono tracking-wide">Data</a>
+        <a href="#chapters" class="text-sm text-gray-400 hover:text-cyber-teal transition-colors font-mono tracking-wide">Chapters</a>
+        <a href="#author" class="text-sm text-gray-400 hover:text-cyber-teal transition-colors font-mono tracking-wide">Author</a>
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="px-5 py-2 bg-cyber-gold/10 border border-cyber-gold/40 text-cyber-gold text-sm font-mono tracking-wide hover:bg-cyber-gold/20 hover:border-cyber-gold/70 transition-all rounded">
+          Get the Book
+        </a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-cyber-teal" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-cyber-darker/95 backdrop-blur-xl border-t border-cyber-teal/10">
+      <div class="px-6 py-4 space-y-3">
+        <a href="#about" class="block text-sm text-gray-400 hover:text-cyber-teal font-mono">About</a>
+        <a href="#stats" class="block text-sm text-gray-400 hover:text-cyber-teal font-mono">Data</a>
+        <a href="#chapters" class="block text-sm text-gray-400 hover:text-cyber-teal font-mono">Chapters</a>
+        <a href="#author" class="block text-sm text-gray-400 hover:text-cyber-teal font-mono">Author</a>
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="block text-sm text-cyber-gold font-mono">Get the Book</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- HERO SECTION -->
+  <!-- ============================================================ -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Animated grid background -->
+    <div class="absolute inset-0 opacity-[0.07]">
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(61,165,181,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(61,165,181,0.3) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <!-- Radial gradient overlay -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(61,165,181,0.08)_0%,_transparent_70%)]"></div>
+
+    <!-- Floating orbs -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyber-teal/5 rounded-full blur-[100px]" style="animation: float 8s ease-in-out infinite;"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyber-gold/5 rounded-full blur-[80px]" style="animation: float 6s ease-in-out infinite 2s;"></div>
+
+    <!-- Scanline effect -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]">
+      <div class="w-full h-[2px] bg-cyber-teal" style="animation: scanline 8s linear infinite;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <!-- Terminal-style pre-title -->
+      <div class="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-cyber-card/50 border border-cyber-teal/20 rounded-full backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-cyber-red"></span>
+        <span class="w-2 h-2 rounded-full bg-cyber-gold"></span>
+        <span class="w-2 h-2 rounded-full bg-cyber-green"></span>
+        <span class="font-mono text-xs text-cyber-teal/70 ml-2">threat_level: CRITICAL // autonomous_agents: 3,000,000+ deployed</span>
+      </div>
+
+      <!-- Main title -->
+      <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] mb-2">
+        <span class="block text-white">No Human</span>
+        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyber-teal via-cyber-teal-glow to-cyber-teal">
+          in the Loop
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-lg sm:text-xl lg:text-2xl text-gray-400 font-light tracking-wide max-w-2xl mx-auto">
+        Cybersecurity in the <span class="text-cyber-gold font-medium">Autonomous AI Age</span>
+      </p>
+
+      <!-- Author -->
+      <p class="mt-4 text-sm font-mono text-cyber-teal/60 tracking-widest uppercase">
+        Lennart Lopin &middot; CISSP &middot; CCSP &middot; CSSLP
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener"
+           class="group relative px-8 py-4 bg-gradient-to-r from-cyber-teal to-cyber-teal-dim text-white font-semibold text-lg rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(61,165,181,0.3)]">
+          <span class="relative z-10 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            Order Now on Amazon
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-r from-cyber-teal-glow to-cyber-teal opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </a>
+        <a href="#about" class="px-8 py-4 border border-gray-700 text-gray-300 font-medium text-lg rounded-lg hover:border-cyber-teal/50 hover:text-cyber-teal transition-all">
+          Explore the Book
+        </a>
+      </div>
+
+      <!-- Format badges -->
+      <div class="mt-8 flex items-center justify-center gap-6 text-xs font-mono text-gray-500">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-cyber-green rounded-full"></span> Kindle
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-cyber-teal rounded-full"></span> Paperback
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-cyber-gold rounded-full"></span> Hardcover
+        </span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyber-teal/40">
+      <span class="text-xs font-mono tracking-widest">SCROLL</span>
+      <div class="w-px h-8 bg-gradient-to-b from-cyber-teal/40 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THREAT BRIEFING (INTRO) -->
+  <!-- ============================================================ -->
+  <section id="about" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-teal/[0.02] to-transparent"></div>
+
+    <div class="relative max-w-4xl mx-auto px-6">
+      <!-- Section label -->
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-12 h-px bg-gradient-to-r from-cyber-teal to-transparent"></div>
+        <span class="font-mono text-xs text-cyber-teal tracking-[0.3em] uppercase">Threat Briefing</span>
+      </div>
+
+      <!-- Opening narrative -->
+      <div class="space-y-6 text-lg leading-relaxed text-gray-300">
+        <p class="text-xl lg:text-2xl text-white font-light leading-relaxed">
+          Friday, 14:00 UTC. A mid-sized cryptocurrency exchange&mdash;processing $2 billion in daily volume,
+          protected by $8 million in security infrastructure, defended by 50 autonomous AI agents and
+          12 human operators&mdash;registers the first faint signal that something is wrong.
+        </p>
+
+        <p>
+          The attackers command <span class="text-cyber-teal font-medium">5,247 adversarial AI agents</span>
+          orchestrated via blockchain-based command and control. Their human team: <span class="text-cyber-gold">three operators</span>.
+          Their cost: $47,000 in stolen cloud credits.
+        </p>
+
+        <p>
+          By Sunday morning, the organization faces a choice: catastrophic total shutdown, or accept complete data breach
+          with regulatory fines reaching $100 million. Attacker expenditure: <span class="font-mono text-cyber-red">$50,469</span>.
+          Return on investment for the adversaries: <span class="font-mono text-cyber-red">195:1</span>.
+        </p>
+
+        <p class="text-gray-500 text-base border-l-2 border-cyber-teal/30 pl-6 italic">
+          This is not a scenario from 2030. This is a synthesis of documented attack patterns from 2025 and early 2026.
+          The techniques are real. The vulnerabilities are present in deployed systems today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- STATS SECTION -->
+  <!-- ============================================================ -->
+  <section id="stats" class="relative py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat) => (
+          <div class="group relative p-6 bg-cyber-card/50 border border-gray-800/50 rounded-xl hover:border-cyber-teal/30 transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-br from-cyber-teal/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
+            <div class="relative">
+              <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyber-teal to-cyber-teal-glow mb-3">
+                {stat.value}
+              </div>
+              <p class="text-sm text-gray-400 leading-snug mb-3">{stat.label}</p>
+              <span class="text-[10px] font-mono text-cyber-teal/40 tracking-wider uppercase">{stat.source}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHY THIS BOOK -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 overflow-hidden">
+    <div class="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cyber-teal/20 to-transparent ml-[calc(50%-1px)] hidden lg:block"></div>
+
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-cyber-gold to-transparent"></div>
+        <span class="font-mono text-xs text-cyber-gold tracking-[0.3em] uppercase">Why This Book, Why Now</span>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+        <div class="space-y-6">
+          <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight">
+            The autonomous AI revolution is not approaching.
+            <span class="text-cyber-teal"> It has arrived.</span>
+          </h2>
+          <p class="text-gray-400 leading-relaxed">
+            In January 2026, the most popular open-source AI agent framework&mdash;with 100,000+ GitHub stars, powering
+            autonomous agents across thousands of organizations&mdash;received a security score of <strong class="text-white">2 out of 100</strong>.
+            Prompt injection attacks succeeded 91% of the time.
+          </p>
+          <p class="text-gray-400 leading-relaxed">
+            Meanwhile, 1.4 million AI agents operate on social networks designed for agent-to-agent communication.
+            341 malicious skills were identified in open-source agent repositories&mdash;downloaded thousands of times
+            before detection.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Terminal-style info blocks -->
+          <div class="bg-cyber-darker border border-gray-800 rounded-lg overflow-hidden">
+            <div class="px-4 py-2 border-b border-gray-800 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-red/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-gold/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-green/80"></span>
+              <span class="font-mono text-[10px] text-gray-500 ml-2">threat_assessment.log</span>
+            </div>
+            <div class="p-4 font-mono text-xs space-y-2 text-gray-400">
+              <p><span class="text-cyber-teal">$</span> scan --framework openai-agent-sdk</p>
+              <p class="text-cyber-red">[CRITICAL] Security score: 2/100</p>
+              <p class="text-cyber-red">[CRITICAL] Prompt injection: 91% success rate</p>
+              <p class="text-cyber-gold">[WARNING] System prompt extraction: 84%</p>
+              <p class="text-cyber-gold">[WARNING] Leaked system prompt on turn 1</p>
+              <p>&nbsp;</p>
+              <p><span class="text-cyber-teal">$</span> query --platform agent-social-network</p>
+              <p class="text-gray-300">[INFO] Registered agents: 1,400,000</p>
+              <p class="text-cyber-red">[CRITICAL] Malicious skills detected: 341</p>
+              <p class="text-cyber-gold">[WARNING] Unmonitored agents: ~1,500,000</p>
+              <p>&nbsp;</p>
+              <p><span class="text-cyber-teal">$</span> assess --risk autonomous-deployment</p>
+              <p class="text-cyber-red">[CRITICAL] 50% of agents operate without security oversight</p>
+              <p class="text-white">Assessment: CATASTROPHICALLY INADEQUATE<span class="inline-block w-1.5 h-4 bg-cyber-teal ml-0.5" style="animation: blink-caret 1s step-end infinite;"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTERS / TABLE OF CONTENTS -->
+  <!-- ============================================================ -->
+  <section id="chapters" class="relative py-32">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-card/30 to-transparent"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-12 h-px bg-gradient-to-r from-cyber-teal to-transparent"></div>
+        <span class="font-mono text-xs text-cyber-teal tracking-[0.3em] uppercase">Contents</span>
+      </div>
+      <h2 class="text-3xl lg:text-5xl font-bold text-white mb-4">
+        19 Chapters. 7 Parts. <br class="hidden sm:block"/><span class="text-cyber-teal">One Urgent Message.</span>
+      </h2>
+      <p class="text-gray-500 max-w-2xl mb-16">From understanding the paradigm shift, through offensive capabilities and defensive architectures, to the permanent conflict at the edges.</p>
+
+      <div class="space-y-12">
+        {chapters.map((part) => (
+          <div class="group">
+            <div class="flex items-center gap-4 mb-6">
+              {part.part !== "*" ? (
+                <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-cyber-teal/10 border border-cyber-teal/30 rounded-lg font-mono text-cyber-teal text-sm font-bold">
+                  {part.part}
+                </div>
+              ) : (
+                <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-cyber-gold/10 border border-cyber-gold/30 rounded-lg">
+                  <svg class="w-5 h-5 text-cyber-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+              )}
+              <h3 class="text-xl font-bold text-white">{part.partTitle}</h3>
+              <div class="flex-1 h-px bg-gradient-to-r from-gray-800 to-transparent"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 ml-0 sm:ml-16">
+              {part.chapters.map((ch) => (
+                <div class="p-5 bg-cyber-card/40 border border-gray-800/50 rounded-lg hover:border-cyber-teal/20 hover:bg-cyber-card/60 transition-all duration-300 group/card">
+                  <div class="flex items-start gap-3 mb-2">
+                    <span class="font-mono text-xs text-cyber-teal/50 mt-1 flex-shrink-0">{String(ch.num).padStart(2, '0')}</span>
+                    <h4 class="font-semibold text-white group-hover/card:text-cyber-teal transition-colors text-sm leading-snug">{ch.title}</h4>
+                  </div>
+                  <p class="text-xs text-gray-500 leading-relaxed ml-8">{ch.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHAT MAKES THIS DIFFERENT -->
+  <!-- ============================================================ -->
+  <section class="relative py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-cyber-gold to-transparent"></div>
+        <span class="font-mono text-xs text-cyber-gold tracking-[0.3em] uppercase">Not Another AI Book</span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 border border-gray-800/50 rounded-xl hover:border-cyber-teal/20 transition-all group">
+          <div class="w-10 h-10 flex items-center justify-center bg-cyber-teal/10 rounded-lg mb-4 group-hover:bg-cyber-teal/20 transition-colors">
+            <svg class="w-5 h-5 text-cyber-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Written by an Operator</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Not a researcher studying systems from the outside. An operator managing 1,300 machines,
+            deploying autonomous agents that trade real capital and fail in ways that matter.
+          </p>
+        </div>
+
+        <div class="p-6 border border-gray-800/50 rounded-xl hover:border-cyber-teal/20 transition-all group">
+          <div class="w-10 h-10 flex items-center justify-center bg-cyber-teal/10 rounded-lg mb-4 group-hover:bg-cyber-teal/20 transition-colors">
+            <svg class="w-5 h-5 text-cyber-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Research Current to Feb 2026</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Based on documented incidents, not hypothetical scenarios. OWASP LLM01:2025, ZeroLeaks analyses,
+            FlipAttack research, supply chain compromises under NDA.
+          </p>
+        </div>
+
+        <div class="p-6 border border-gray-800/50 rounded-xl hover:border-cyber-teal/20 transition-all group">
+          <div class="w-10 h-10 flex items-center justify-center bg-cyber-teal/10 rounded-lg mb-4 group-hover:bg-cyber-teal/20 transition-colors">
+            <svg class="w-5 h-5 text-cyber-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Compliance Meets Code</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            ISO 27001 certification, VARA licensing, SOC 2 audits&mdash;the rare intersection of
+            compliance frameworks, infrastructure operations, and direct AI deployment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- AUTHOR SECTION -->
+  <!-- ============================================================ -->
+  <section id="author" class="relative py-32 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-card/20 to-transparent"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-cyber-teal to-transparent"></div>
+        <span class="font-mono text-xs text-cyber-teal tracking-[0.3em] uppercase">About the Author</span>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr,1.5fr] gap-12 items-start">
+        <!-- Author visual -->
+        <div class="relative">
+          <div class="aspect-square bg-gradient-to-br from-cyber-card to-cyber-darker rounded-2xl border border-gray-800 overflow-hidden relative">
+            <!-- Abstract representation -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyber-teal to-cyber-gold mb-4">LL</div>
+                <div class="font-mono text-xs text-cyber-teal/50 tracking-widest">LENNART LOPIN</div>
+              </div>
+            </div>
+            <!-- Decorative circuit lines -->
+            <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 400">
+              <path d="M0 200 H150 V100 H250 V300 H350 V200 H400" stroke="#3da5b5" fill="none" stroke-width="1"/>
+              <path d="M200 0 V150 H100 V250 H300 V150 H200" stroke="#f4c563" fill="none" stroke-width="1"/>
+              <circle cx="150" cy="200" r="3" fill="#3da5b5"/>
+              <circle cx="250" cy="100" r="3" fill="#3da5b5"/>
+              <circle cx="250" cy="300" r="3" fill="#f4c563"/>
+              <circle cx="200" cy="150" r="3" fill="#f4c563"/>
+            </svg>
+          </div>
+          <!-- Credentials -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            {["CISSP", "CCSP", "CSSLP", "ISO 27001 Lead", "M.A. CompLing & AI"].map(cert => (
+              <span class="px-3 py-1 text-[10px] font-mono tracking-wider text-cyber-teal/70 bg-cyber-teal/5 border border-cyber-teal/15 rounded-full uppercase">{cert}</span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Author bio -->
+        <div class="space-y-5">
+          <h2 class="text-3xl font-bold text-white">
+            Lennart Lopin builds the systems this book warns you about.
+          </h2>
+
+          <p class="text-gray-400 leading-relaxed">
+            One of 100 finalists from 202,586 applicants for the Mars One mission. Founder of Marscoin,
+            the cryptocurrency for planetary colonization. Creator of Prelude, the AI chatbot that won
+            the 2005 International Championship. Author of more than thirty books. Reads six languages,
+            including Latin, Sanskrit, and Pali.
+          </p>
+
+          <p class="text-gray-400 leading-relaxed">
+            Today, as CTO and Co-founder of Byte Federal&mdash;one of America's largest Bitcoin ATM
+            networks&mdash;he secures over 1,300 machines across 42 states, led ISO 27001 certification,
+            and navigates VARA licensing in the UAE. His M.A. in Computational Linguistics and Artificial
+            Intelligence, earned two decades ago when machine reasoning was still theoretical, presaged
+            the transformer architectures that now power the systems he secures.
+          </p>
+
+          <p class="text-gray-400 leading-relaxed">
+            What qualifies him to write about autonomous AI security is simpler: he deploys autonomous
+            agents that trade real capital, make real decisions, and fail in ways that keep him up at 3 AM.
+          </p>
+
+          <p class="text-gray-500 text-sm leading-relaxed italic border-l-2 border-cyber-gold/30 pl-4">
+            Before any of this, he spent three years as a Buddhist monk in Sri Lanka. An unusual
+            preparation for cybersecurity&mdash;but perhaps the right one for understanding how minds,
+            biological or silicon, make decisions under uncertainty.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CALL TO ACTION -->
+  <!-- ============================================================ -->
+  <section class="relative py-32 overflow-hidden">
+    <!-- Background effect -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-cyber-teal/5 via-transparent to-cyber-gold/5"></div>
+      <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(61,165,181,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(61,165,181,0.5) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-6 text-center">
+      <div class="inline-block mb-8">
+        <div class="px-4 py-1.5 bg-cyber-red/10 border border-cyber-red/20 rounded-full">
+          <span class="font-mono text-xs text-cyber-red tracking-wider">WINDOW FOR PROACTIVE DEFENSE: MONTHS, NOT YEARS</span>
+        </div>
+      </div>
+
+      <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+        The adversarial agents are already deployed.
+        <span class="text-cyber-teal"> Already learning. Already adapting.</span>
+      </h2>
+
+      <p class="text-lg text-gray-400 mb-12 max-w-xl mx-auto">
+        Available now in Kindle, paperback, and hardcover. Research current through February 2026.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener"
+           class="group relative px-10 py-5 bg-gradient-to-r from-cyber-gold to-cyber-gold-dim text-cyber-darker font-bold text-lg rounded-lg overflow-hidden transition-all hover:shadow-[0_0_40px_rgba(244,197,99,0.2)]">
+          <span class="relative z-10 flex items-center gap-3">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.07-.116.36-.217.543-.237 1.186-.131 2.373-.263 3.56-.394.025-.003.05-.003.075-.005l.066-.003c.3-.174.51-.468.596-.813.05-.202.078-.41.078-.622 0-.482 0-.964-.003-1.446 0-.182-.017-.362-.065-.538-.114-.42-.384-.698-.812-.792-.03-.007-.06-.01-.087-.02h-.05c-.32.06-.585.232-.775.488-.127.172-.217.367-.267.578-.08.333-.12.673-.135 1.016-.01.224-.01.45.003.674.017.303.067.6.168.885.026.073.057.144.093.21l-.02.007c-.74.083-1.48.166-2.22.25-.088.008-.175.02-.262.03-.056-.1-.098-.205-.128-.315-.157-.572-.21-1.158-.2-1.748.01-.554.066-1.104.2-1.642.16-.643.422-1.24.8-1.782.196-.278.427-.528.692-.74.328-.264.698-.433 1.114-.482.24-.028.48-.014.714.05.416.115.748.35.986.712.16.244.265.514.32.8.05.26.07.524.075.788.002.2.002.398 0 .597-.003.257-.03.513-.087.765-.06.255-.147.5-.27.73-.062.114-.13.224-.21.328l.024.008c.014-.003.03-.004.044-.01.18-.057.34-.152.474-.286.177-.176.3-.39.373-.633.05-.166.08-.338.095-.513.02-.236.017-.473-.005-.71-.024-.253-.07-.502-.15-.744-.123-.37-.318-.694-.59-.966-.247-.248-.54-.424-.88-.512-.226-.058-.457-.074-.69-.058-.454.031-.863.19-1.228.46-.385.286-.69.646-.918 1.068-.277.514-.448 1.066-.535 1.645-.065.434-.088.872-.07 1.312.02.49.085.974.234 1.44.02.06.042.123.068.183zm23.91-1.55c-.15.074-.35.114-.5.114-.4 0-.74-.12-1.01-.37-.2-.18-.33-.41-.39-.68-.04-.17-.05-.35-.05-.53v-2.25c0-.23-.01-.46-.05-.69-.09-.48-.33-.87-.71-1.16-.265-.2-.565-.33-.895-.38-.19-.03-.38-.04-.57-.03-.37.02-.72.12-1.04.31-.32.19-.57.44-.75.75l-.01.02-.04-.03c.01-.29.04-.58.1-.87.09-.44.25-.85.49-1.23.29-.45.66-.81 1.13-1.06.34-.18.71-.29 1.09-.32.18-.01.36-.01.54.01.36.05.69.17.98.37.39.27.65.63.79 1.08.07.23.11.47.12.72.01.21.01.43 0 .64-.01.2-.03.39-.06.59-.04.23-.1.46-.18.68-.13.34-.31.65-.55.92-.16.18-.34.33-.55.45l-.01.01v.04c.1-.01.2-.03.3-.06.28-.08.52-.22.72-.41.24-.23.4-.51.5-.83.06-.19.1-.39.12-.59.02-.22.02-.43 0-.65-.02-.24-.07-.48-.15-.71-.12-.37-.32-.69-.59-.96-.25-.25-.54-.42-.88-.51-.23-.06-.46-.07-.69-.06-.46.03-.87.19-1.23.46-.39.29-.69.65-.92 1.07-.28.51-.45 1.07-.54 1.65-.06.43-.09.87-.07 1.31.02.49.09.97.23 1.44.1.31.23.6.41.86.22.32.5.57.84.73.28.13.59.2.91.2.23 0 .45-.04.66-.11.3-.1.56-.28.76-.53.14-.17.24-.37.32-.58.02-.05.03-.1.04-.14z"/></svg>
+            Order on Amazon
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-r from-cyber-gold to-[#e6b84d] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </a>
+      </div>
+
+      <!-- Book details -->
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-mono text-gray-600">
+        <span>ISBN: 979-8-2469-7207-6 (Paperback)</span>
+        <span>ISBN: 979-8-2468-9369-2 (Hardcover)</span>
+        <span>ASIN: B0GM7S1HYD (Kindle)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================================ -->
+  <footer class="relative border-t border-gray-800/50 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 relative">
+              <div class="absolute inset-0 border border-cyber-teal/40 rounded rotate-45"></div>
+              <div class="absolute inset-1 border border-cyber-gold/60 rounded rotate-45"></div>
+              <div class="absolute inset-2 bg-cyber-teal/80 rounded-sm rotate-45"></div>
+            </div>
+            <span class="font-mono text-xs text-cyber-teal tracking-widest">NHITL</span>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            No Human in the Loop: Cybersecurity in the Autonomous AI Age.
+            First Edition, February 2026.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-xs text-gray-400 tracking-wider uppercase mb-4">The Book</h4>
+          <ul class="space-y-2">
+            <li><a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">Kindle Edition</a></li>
+            <li><a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">Paperback</a></li>
+            <li><a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">Hardcover</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-xs text-gray-400 tracking-wider uppercase mb-4">Navigate</h4>
+          <ul class="space-y-2">
+            <li><a href="#about" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">Threat Briefing</a></li>
+            <li><a href="#chapters" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">Chapters</a></li>
+            <li><a href="#author" class="text-sm text-gray-500 hover:text-cyber-teal transition-colors">About the Author</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-xs text-gray-400 tracking-wider uppercase mb-4">Categories</h4>
+          <ul class="space-y-2">
+            <li><span class="text-xs text-gray-600">AI & Machine Learning</span></li>
+            <li><span class="text-xs text-gray-600">Network Security</span></li>
+            <li><span class="text-xs text-gray-600">Computers & Technology</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800/50 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-gray-600">&copy; 2026 Lennart Lopin. All rights reserved.</p>
+        <p class="text-xs text-gray-700 font-mono">www.nohumanintheloop.org</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- SCRIPTS -->
+  <!-- ============================================================ -->
+  <script>
+    // Navbar background on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar?.classList.add('bg-cyber-darker/90', 'backdrop-blur-xl', 'border-b', 'border-gray-800/50');
+      } else {
+        navbar?.classList.remove('bg-cyber-darker/90', 'backdrop-blur-xl', 'border-b', 'border-gray-800/50');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu?.classList.add('hidden');
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-8');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.add('transition-all', 'duration-700');
+      observer.observe(section);
+    });
+  </script>
+</Layout>

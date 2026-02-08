@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-dark: #0a0e17;
+  --color-cyber-darker: #060a12;
+  --color-cyber-card: #111827;
+  --color-cyber-teal: #3da5b5;
+  --color-cyber-teal-dim: #2a7a87;
+  --color-cyber-teal-glow: #4fd1e5;
+  --color-cyber-gold: #f4c563;
+  --color-cyber-gold-dim: #c9a04e;
+  --color-cyber-red: #ef4444;
+  --color-cyber-green: #22c55e;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Scanline overlay */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #3da5b5; }
+}
+
+@keyframes grid-scroll {
+  0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+  100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e17;
+}
+::-webkit-scrollbar-thumb {
+  background: #3da5b5;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4fd1e5;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(61, 165, 181, 0.3);
+  color: #4fd1e5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0e17;
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+}
