@@ -665,6 +665,9 @@ import Layout from '../layouts/Layout.astro';
   <!-- SCROLL REVEAL SCRIPT                                     -->
   <!-- ======================================================== -->
   <script>
+    // Elements already in viewport get revealed immediately
+    const revealElements = document.querySelectorAll('.reveal');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -672,11 +675,19 @@ import Layout from '../layouts/Layout.astro';
         }
       });
     }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -60px 0px'
+      threshold: 0.05,
+      rootMargin: '50px 0px -40px 0px'
     });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    revealElements.forEach(el => {
+      // If element is already in viewport on load, reveal immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('visible');
+      } else {
+        observer.observe(el);
+      }
+    });
   </script>
 
 </Layout>
