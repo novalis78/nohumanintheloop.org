@@ -113,25 +113,60 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ======================================================== -->
-  <!-- THE TITLE REVEAL                                         -->
+  <!-- THE TITLE REVEAL + COVER                                 -->
   <!-- ======================================================== -->
   <section class="relative py-32 md:py-48 px-6 overflow-hidden">
     <!-- Subtle radial glow -->
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(61,165,181,0.04)_0%,_transparent_60%)]"></div>
 
-    <div class="relative max-w-4xl mx-auto text-center">
-      <div class="reveal">
-        <p class="font-mono text-[10px] tracking-[0.5em] text-teal/40 uppercase mb-8">The Book</p>
-        <h2 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.0] tracking-tight">
-          <span class="text-white">No Human</span><br/>
-          <span class="italic text-teal">in the Loop</span>
-        </h2>
-        <p class="mt-6 text-xl md:text-2xl text-ash font-light tracking-wide">
-          Cybersecurity in the Autonomous AI Age
-        </p>
-        <p class="mt-4 font-mono text-sm text-smoke tracking-wider">
-          Lennart Lopin &ensp;&middot;&ensp; CISSP &ensp;&middot;&ensp; CCSP &ensp;&middot;&ensp; CSSLP
-        </p>
+    <div class="relative max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-[1fr,auto] gap-16 lg:gap-24 items-center">
+
+        <!-- Left: Text -->
+        <div class="text-center lg:text-left reveal">
+          <p class="font-mono text-[10px] tracking-[0.5em] text-teal/40 uppercase mb-8">The Book</p>
+          <h2 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.0] tracking-tight">
+            <span class="text-white">No Human</span><br/>
+            <span class="italic text-teal">in the Loop</span>
+          </h2>
+          <p class="mt-6 text-xl md:text-2xl text-ash font-light tracking-wide">
+            Cybersecurity in the Autonomous AI Age
+          </p>
+          <p class="mt-4 font-mono text-sm text-smoke tracking-wider">
+            Lennart Lopin &ensp;&middot;&ensp; CISSP &ensp;&middot;&ensp; CCSP &ensp;&middot;&ensp; CSSLP
+          </p>
+          <p class="mt-6 text-sm text-smoke/60 font-mono">533 pages &ensp;&middot;&ensp; February 2026 &ensp;&middot;&ensp; First Edition</p>
+
+          <div class="mt-10">
+            <a href="https://www.amazon.com/dp/B0GM7S1HYD" target="_blank" rel="noopener"
+               class="shimmer inline-flex items-center gap-3 px-8 py-4 bg-teal text-void font-semibold text-base tracking-wide rounded transition-all hover:bg-teal-bright hover:shadow-[0_0_40px_rgba(61,165,181,0.25)]">
+              Order Now
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Cover image -->
+        <div class="reveal reveal-delay-2 flex justify-center lg:justify-end">
+          <div class="relative group">
+            <!-- Glow behind cover -->
+            <div class="absolute -inset-4 bg-gradient-to-br from-teal/10 via-transparent to-gold/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <!-- Cover image -->
+            <img
+              src="/cover-lg.jpg"
+              srcset="/cover-md.jpg 600w, /cover-lg.jpg 1200w"
+              sizes="(max-width: 768px) 300px, 420px"
+              alt="No Human in the Loop: Cybersecurity in the Autonomous AI Age - Book cover featuring a meditating figure rendered in golden circuit patterns against a dark digital matrix"
+              width="420"
+              height="630"
+              loading="eager"
+              class="relative w-[280px] md:w-[340px] lg:w-[420px] rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(61,165,181,0.08)] transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <!-- Subtle reflection -->
+            <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-teal/5 to-transparent blur-xl"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -379,7 +414,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-2xl mb-20 reveal">
         <p class="font-mono text-[11px] tracking-[0.35em] text-teal/50 uppercase mb-6">Inside the Book</p>
         <h2 class="font-display text-3xl md:text-4xl text-bone leading-tight mb-4">
-          19 chapters. 588 pages.<br/>
+          19 chapters. 533 pages.<br/>
           <span class="text-teal">One urgent argument.</span>
         </h2>
         <p class="text-base text-smoke leading-relaxed">
